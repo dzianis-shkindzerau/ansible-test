@@ -1,0 +1,40 @@
+---
+#
+# Details:
+#   @author: dzianis_shkindzirau@epam.com
+#
+
+- name: Create basic user
+  user:
+    name: johnd
+    comment: "John Doe"
+    uid: 1040
+    group: nginx
+
+- name: Create dirs structure if it do not exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: johnd
+    group: nginx
+    mode:  0755
+  with_items:
+    - "~/ytestd1"
+    - "/var/lib/ytestd2"
+    - "/var/log/ytestd3"
+    - "/opt/ytestd4"
+    - "/etc/ytestd5"
+
+- name: Write the service config file N1
+  template:
+    src: main.j2
+    dest: /tmp/main.conf
+
+- name: Override variables
+  set_fact:
+    ssh_keys: ddddddddddddddddddddddd
+
+- name: Write the service config file N2
+  template:
+    src: main.j2
+    dest: /tmp/main.conf

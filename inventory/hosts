@@ -1,0 +1,12 @@
+[os:children]
+local
+demo
+
+[os:vars]
+os_groupvar=groupvar-value
+
+[local]
+localhost
+
+[demo]
+ECSC001068E0.epam.com

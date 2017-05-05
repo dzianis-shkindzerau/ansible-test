@@ -1,0 +1,4 @@
+---
+service_name: service_name-from_defaults_main
+#ssh_keys: ssh_keys-from_defaults_main
+

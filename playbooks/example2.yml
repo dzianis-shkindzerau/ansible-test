@@ -1,0 +1,9 @@
+---
+- name : example2 play
+  hosts: demo
+
+  roles:
+  #- role: example
+  #- { role: example, service_name: from_play_params }
+  - { role: example, tags: ["service1", "service1:configure"] }
+  #- { role: example, when: "ansible_os_family == 'RedHat111'" }

@@ -1,0 +1,44 @@
+---
+- name : example2 play
+  hosts: demo
+
+  tasks:
+  - file:
+      path: /etc/foo.conf
+      state: touch
+
+#- file:
+#    path: "{{ service_cs_etc_dir }}/{{ service_cs_admin_username }}.conf"
+#    state: touch
+#    owner: root
+#    group: root
+#    mode: 0444
+
+#- copy:
+#    dest: /tmp/credentials/service-cs/accesskey
+#    content: "LYSOFEIPVKL9MMVT1R-4"
+
+- lineinfile:
+    dest: "/tmp/credentials/service-cs/accesskey"
+    line: 'LYSOFEIPVKL9MMVT1R-4'
+    state: present
+    create: yes
+
+
+#- script: "cat /tmp/credentials/service-cs/accesskey"
+#  register: sym
+
+- slurp:
+    src: "/tmp/credentials/service-cs/accesskey"
+  register: sym
+
+
+- debug:
+    msg: "{{ sym['content'] | b64decode }}"
+
+
+#- debug:
+#    msg: "{{ sym }}"
+
+#- debug:
+#    msg: "{{ lookup('file', '/tmp/credentials/service-cs/accesskey') }}"

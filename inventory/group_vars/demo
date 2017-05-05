@@ -1,0 +1,11 @@
+---
+# Vars specific for group of host
+
+## Settings
+ansible_connection: ssh
+ansible_user: dzianis_shkindzirau@epam.com
+ansible_ssh_private_key_file: ~/.ssh/ecokey.pem
+ansible_become: yes
+
+## Variables
+group_var: groupvar-value

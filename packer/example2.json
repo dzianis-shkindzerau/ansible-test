@@ -1,0 +1,17 @@
+{
+  "variables": {
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "centos:7",
+      "commit": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "playbooks/example2.yml"
+    }
+  ]
+}

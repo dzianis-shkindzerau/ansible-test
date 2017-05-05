@@ -1,0 +1,10 @@
+---
+#
+# ansible-galaxy playbook dependencies:
+# Install with: `ansible-galaxy install -r requirements.yml --ignore-errors`
+# http://docs.ansible.com/galaxy.html#installing-multiple-roles-from-a-file
+#
+
+#- name: nginx
+#  src: https://github.com/*.git
+#  version: <commit_id>

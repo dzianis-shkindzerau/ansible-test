@@ -1,0 +1,8 @@
+---
+# Vars specific for host
+
+## Settings
+ansible_connection: local
+
+## Variables
+local_var: localvar-value

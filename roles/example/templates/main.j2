@@ -1,0 +1,14 @@
+#
+# How to use it:
+# http://docs.ansible.com/ansible/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts
+#
+
+{% if 'demo' in group_names %}
+{% for host in groups['demo'] %}
+  | {{ ansible_fqdn }} and port is: {{ hostvars[host]['service_port'] }}
+  | service_name: {{ service_name }}
+{% endfor %}
+{% endif %}
+
+ssh_keys = {{ ssh_keys | default(omit) }}
+

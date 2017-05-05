@@ -1,0 +1,26 @@
+---
+#
+# Details:
+#   @author: dzianis_shkindzirau@epam.com
+#
+
+- name: Service configuration1
+  include: configure.yml #service_name=from_include ssh_keys=<empty>
+  tags:
+  - service1
+  - service1:configure
+
+#- name: Service configuration2
+#  include: configure.yml
+#  vars:
+#    service_name: from_include_vars
+#    ssh_keys: [1,2]
+#    ssh_keys2:
+#      - keys/one.txt
+#      - keys/two.txt
+
+- debug:
+    msg: |
+      Variables:
+      - ansible_os_family={{ansible_os_family}}
+

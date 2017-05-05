@@ -1,0 +1,5 @@
+---
+#dependencies:
+#- { role: nginx }
+#- { role: postgres, dbname: blarg, other_parameter: 12 }
+#- { role: '/path/to/common/roles/foo', x: 1 }

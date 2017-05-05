@@ -1,0 +1,94 @@
+---
+- name : example1 play
+  hosts: demo
+
+  # Support for running things as another user
+  #remote_user: test
+  #become: yes
+  #become_method: sudo
+  #become_user: postges
+  #become_user: nobody
+  #become_flags: '-s /bin/sh'
+
+  #gather_facts: no
+  #strategy: debug
+
+  vars:
+    nginx_yum_package: nginx-1.10.2-1.el7
+
+
+  #roles:
+  #- role: example
+
+
+  pre_tasks:
+  #- name: run test script
+  # script: test_script2 --parameter value --parameter2 value
+  - name: this task will be skipped in check mode
+    git:
+      repo: git@github.com:dzianis-shkindzerau/temp.git
+      dest: /tmp
+    when: not ansible_check_mode
+    ignore_errors: true
+  - name: this task will ignore errors in check mode
+    git:
+      repo: git@github.com:dzianis-shkindzerau/temp.git
+      dest: /tmp
+    ignore_errors: "{{ ansible_check_mode }}"
+
+
+  tasks:
+  - name: Add EPEL YUM repo
+    yum_repository:
+      name: epel
+      description: EPEL YUM repo
+      baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+  - name: ensure service is at the latest version
+    yum:
+      name: "{{ nginx_yum_package }}"
+      state: present
+      disable_gpg_check: true
+  - name: ensure that service is started
+    service:
+      name: nginx
+      state: started
+      enabled: yes
+  - name: Copy ansible inventory file to client
+    check_mode: yes
+    copy:
+      src: /etc/ansible/hosts
+      dest: /tmp/hosts-111111
+      owner: root
+      group: root
+      mode: 0644
+  - name: restart everything
+    command: echo "this task will restart the web services"
+    notify: "restart web services"
+
+
+  #post_tasks:
+  #- name: sharding of dbs
+  #  include: roles/basic/tasks/shards.yml
+  #- name: run this command and ignore the result
+  #  shell: /usr/bin/somecommand
+  #  ignore_errors: True
+  #- name: enable selinux
+  #  command: /sbin/setenforce 1
+  #  notify:
+  #    - restart service1
+
+
+  handlers:
+  - name: restart service1
+    service:
+      name: nginx
+      state: restarted
+    listen: "restart web services"
+  - name: restart service2
+    service:
+      name: nginx
+      state: restarted
+    listen: "restart web services"
+
+
+
